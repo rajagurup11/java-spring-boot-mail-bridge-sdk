@@ -1,5 +1,6 @@
 package io.github.rajagurup.mailbridge.model;
 
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Map;
 import lombok.Builder;
@@ -20,10 +21,11 @@ import org.springframework.util.StringUtils;
  */
 @Builder
 public record EmailRequest(
-    List<String> to,
+    @NotNull List<String> to,
+    @NotNull String from,
     List<String> cc,
     List<String> bcc,
-    String subject,
+    @NotNull String subject,
     String template,
     String body,
     boolean sendAsHtml,
@@ -44,11 +46,6 @@ public record EmailRequest(
    * @return true if no template is used and a non-empty body is present
    */
   public boolean isBodyBased() {
-    System.out.println(
-        "!isTemplateBased() :"
-            + !isTemplateBased()
-            + " StringUtils.hasText(body) :"
-            + StringUtils.hasText(body));
     return !isTemplateBased() && StringUtils.hasText(body);
   }
 }

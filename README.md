@@ -45,22 +45,38 @@ Or with Gradle:
 implementation 'io.github.rajagurup:mail-bridge:1.0.0'
 ```
 
+📄 Template Path Note
+If you are using HTML templates with Mail Bridge:
+- Templates should be placed under src/main/resources/templates/ in your project.
+- The path is relative to the classpath, and by default, Spring Boot loads from this location.
+
+```aiignore
+src/main/resources/templates/welcome-email.html
+```
+When building the EmailRequest, you only need to provide the filename:
+```aiignore
+EmailRequest.builder()
+    .template("welcome-email.html")
+    .build();
+```
+
 🔧 Configuration (Spring Boot) 
 In your application.yml:
 
 ```aiignore
+# === MailBridge Configuration ===
+# If 'mailbridge.enabled' is set to true, the following 'spring.mail.*' SMTP properties are mandatory.
+# The application will fail to start if these values are missing or misconfigured.
+# If 'mailbridge.enabled' is set to false, MailBridge is disabled and these values are not required.
 mailbridge:
-  from: no-reply@yourdomain.com
-  reply-to: support@yourdomain.com
-  template-prefix: classpath:/templates/
   enabled: true
 
 spring:
   mail:
-    host: smtp.yourprovider.com
-    port: 587
-    username: ${SMTP_USERNAME}
-    password: ${SMTP_PASSWORD}
+    host: smtp.yourprovider.com # Required if mailbridge.enabled = true
+    port: <port> # Required if mailbridge.enabled = true
+    username: ${SMTP_USERNAME} # Required if mailbridge.enabled = true
+    password: ${SMTP_PASSWORD} # Required if mailbridge.enabled = true
     properties:
       mail:
         smtp:
@@ -73,21 +89,32 @@ spring:
 
 1. Inject the service
 ```aiignore
-@Autowired
+@Autowired // This is just an example, prefer constructor injection.
 private EmailService emailService;
 ```
 
 2. Build and send an email
 ```aiignore
 EmailRequest request = EmailRequest.builder()
-    .to("recipient@example.com")
-    .subject("Welcome to Mail Bridge!")
-    .template("welcome-email.html")
-    .model(Map.of("name", "Rajaguru", "link", "https://example.com/verify"))
+    .from("no-reply@example.com")
+    .to(List.of("user@example.com"))
+    .cc(List.of("cc@example.com"))
+    .bcc(List.of("bcc@example.com"))
+    .subject("Welcome to MailBridge!")
+    .template("welcome.html")
+    .model(Map.of(
+        "username", "Rajaguru",
+        "activationLink", "https://example.com/activate?token=abc123"
+    ))
     .attachments(List.of(
-        Attachment.fromFile("invoice.pdf", new File("/path/to/invoice.pdf"))
+        Attachment.builder()
+            .filename("invoice.pdf")
+            .mimeType(SupportedMimeType.PDF) // compile-time safety
+            .base64Content("JVBERi0xLjQKJcfs...") // truncated base64 content
+            .build()
     ))
     .build();
+
 
 emailService.send(request);
 ```
@@ -123,10 +150,7 @@ src/
 
 🧪 Testing & Validation
 ```aiignore
-Includes unit and integration tests with real SMTP scenarios using:
-- GreenMail
--In-memory templates
-- CI support (GitHub Actions / Maven Wrapper)
+Includes unit testing
 ```
 
 🤝 Contributing
@@ -142,7 +166,7 @@ Open a PR with a clear description
 
 ```aiignore
 After 14 years in Java and Spring Boot, I built Mail Bridge to save developers from reinventing the wheel for every email feature. Hope it makes your job easier — and your emails more powerful.
-— Rajaguru P. Pelase reach me at rajagurup11@gmail.com for assitance or any tech dicussios.
+— Rajaguru P. Pelase reach me at rajagurup11@gmail.com for assitance or any tech discussios.
 ```
 
 🔗 Links

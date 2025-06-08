@@ -7,11 +7,10 @@ import org.springframework.validation.annotation.Validated;
 
 /** Configuration properties for email settings. */
 @Validated
-@ConfigurationProperties(prefix = "mailbridge")
+@ConfigurationProperties(prefix = "spring.mail")
 @Generated
 public record EmailProperties(
     @NotBlank String username,
     @NotBlank String password,
-    @NotBlank String from,
     @NotBlank String host,
     @NotNull Integer port) {}

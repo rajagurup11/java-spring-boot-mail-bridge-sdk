@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConditionalOnProperty(
-    prefix = "mailbridge",
+    prefix = "mail-bridge",
     name = "enabled",
     havingValue = "true",
     matchIfMissing = true)

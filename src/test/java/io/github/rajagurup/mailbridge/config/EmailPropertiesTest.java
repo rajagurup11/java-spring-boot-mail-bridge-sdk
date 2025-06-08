@@ -16,18 +16,16 @@ class EmailPropertiesTest {
   void shouldBindPropertiesSuccessfully() {
     contextRunner
         .withPropertyValues(
-            "mailbridge.username=testuser",
-            "mailbridge.password=testpass",
-            "mailbridge.from=no-reply@example.com",
-            "mailbridge.host=smtp.example.com",
-            "mailbridge.port=587")
+            "spring.mail.username=testuser",
+            "spring.mail.password=testpass",
+            "spring.mail.host=smtp.example.com",
+            "spring.mail.port=587")
         .run(
             context -> {
               assertThat(context).hasSingleBean(EmailProperties.class);
               EmailProperties props = context.getBean(EmailProperties.class);
               assertThat(props.username()).isEqualTo("testuser");
               assertThat(props.password()).isEqualTo("testpass");
-              assertThat(props.from()).isEqualTo("no-reply@example.com");
               assertThat(props.host()).isEqualTo("smtp.example.com");
               assertThat(props.port()).isEqualTo(587);
             });

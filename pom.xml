@@ -15,13 +15,13 @@
     </parent>
 
     <groupId>io.github.rajagurup</groupId>
-    <artifactId>mailbridge-sdk</artifactId>
+    <artifactId>java-spring-boot-mail-bridge-sdk</artifactId>
     <version>0.0.1</version>
     <name>MailBridge SDK</name>
     <description>
         Java SDK for sending emails with templates and attachments using Spring Boot and Thymeleaf.
     </description>
-    <url>https://github.com/rajagurup/mailbridge-sdk</url>
+    <url>https://github.com/rajagurup11/java-spring-boot-mail-bridge-sdk</url>
 
     <developers>
         <developer>
@@ -33,9 +33,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:https://github.com/rajagurup/mailbridge-sdk.git</connection>
+        <connection>scm:git:https://github.com/rajagurup11/java-spring-boot-mail-bridge-sdk.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/rajagurup/mailbridge-sdk.git</developerConnection>
-        <url>https://github.com/rajagurup/mailbridge-sdk</url>
+        <url>https://github.com/rajagurup11/java-spring-boot-mail-bridge-sdk</url>
         <tag>HEAD</tag>
     </scm>
 

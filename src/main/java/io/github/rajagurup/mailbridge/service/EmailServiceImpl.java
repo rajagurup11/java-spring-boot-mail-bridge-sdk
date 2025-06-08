@@ -23,6 +23,7 @@ import org.thymeleaf.context.Context;
 @RequiredArgsConstructor
 public non-sealed class EmailServiceImpl implements EmailService {
 
+  private final String TEMPLATE_BASE_PATH = "classpath:/templates/";
   private final JavaMailSender mailSender;
   private final TemplateEngine templateEngine;
 
@@ -43,6 +44,7 @@ public non-sealed class EmailServiceImpl implements EmailService {
       MimeMessage mimeMessage = mailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 
+      helper.setFrom(request.from());
       helper.setTo(request.to().toArray(new String[0]));
       if (!CollectionUtils.isEmpty(request.cc())) {
         helper.setCc(request.cc().toArray(new String[0]));
@@ -59,7 +61,7 @@ public non-sealed class EmailServiceImpl implements EmailService {
       if (request.isTemplateBased()) {
         Context context = new Context();
         context.setVariables(request.model());
-        content = templateEngine.process(request.template(), context);
+        content = templateEngine.process(TEMPLATE_BASE_PATH + request.template(), context);
         isHtml = true;
       } else if (request.isBodyBased()) {
         content = request.body();

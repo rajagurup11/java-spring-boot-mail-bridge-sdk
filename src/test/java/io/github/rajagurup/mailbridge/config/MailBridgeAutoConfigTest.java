@@ -10,12 +10,10 @@ class MailBridgeAutoConfigTest {
   private final ApplicationContextRunner contextRunner =
       new ApplicationContextRunner()
           .withPropertyValues(
-              "mailbridge.host=smtp.example.com",
-              "mailbridge.port=587",
-              "mailbridge.username=testuser",
-              "mailbridge.password=testpass",
-              "mailbridge.from=no-reply@example.com",
-              "mailbridge.enabled=true")
+              "spring.mail.host=smtp.example.com",
+              "spring.mail.port=587",
+              "spring.mail.username=testuser",
+              "spring.mail.password=testpass")
           .withUserConfiguration(MailBridgeAutoConfig.class);
 
   @Test

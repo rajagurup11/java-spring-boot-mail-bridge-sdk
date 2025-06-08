@@ -44,6 +44,7 @@ class EmailServiceImplTest {
     EmailRequest request =
         EmailRequest.builder()
             .to(List.of("to@example.com"))
+            .from("no-reply@example.com")
             .cc(List.of("cc@example.com"))
             .bcc(List.of("bcc@example.com"))
             .subject("Test Subject")
@@ -51,7 +52,8 @@ class EmailServiceImplTest {
             .model(Map.of("name", "Tester"))
             .build();
 
-    when(templateEngine.process(eq("welcome.html"), any())).thenReturn("<h1>Hello Tester</h1>");
+    when(templateEngine.process(eq("classpath:/templates/welcome.html"), any()))
+        .thenReturn("<h1>Hello Tester</h1>");
 
     EmailResponse response = emailService.sendEmail(request);
 
@@ -67,6 +69,7 @@ class EmailServiceImplTest {
     EmailRequest request =
         EmailRequest.builder()
             .to(List.of("to@example.com"))
+            .from("no-reply@example.com")
             .subject("Plain Text")
             .body("This is a plain text email")
             .sendAsHtml(false)
@@ -86,6 +89,7 @@ class EmailServiceImplTest {
     EmailRequest request =
         EmailRequest.builder()
             .to(List.of("to@example.com"))
+            .from("no-reply@example.com")
             .subject("HTML Email")
             .body("<p>This is HTML</p>")
             .sendAsHtml(true)
@@ -114,6 +118,7 @@ class EmailServiceImplTest {
     EmailRequest request =
         EmailRequest.builder()
             .to(List.of("to@example.com"))
+            .from("no-reply@example.com")
             .subject("Email with attachment")
             .body("Please see attachment")
             .sendAsHtml(false)
@@ -131,7 +136,11 @@ class EmailServiceImplTest {
   @Test
   void sendEmail_missingTemplateAndBody_throwsException() {
     EmailRequest request =
-        EmailRequest.builder().to(List.of("to@example.com")).subject("Missing content").build();
+        EmailRequest.builder()
+            .to(List.of("to@example.com"))
+            .from("no-reply@example.com")
+            .subject("Missing content")
+            .build();
 
     assertThatThrownBy(() -> emailService.sendEmail(request))
         .isInstanceOf(EmailSendingException.class)
@@ -149,6 +158,7 @@ class EmailServiceImplTest {
     EmailRequest request =
         EmailRequest.builder()
             .to(List.of("to@example.com"))
+            .from("no-reply@example.com")
             .subject("Null MIME")
             .body("Body")
             .sendAsHtml(false)
@@ -175,6 +185,7 @@ class EmailServiceImplTest {
     EmailRequest request =
         EmailRequest.builder()
             .to(List.of("to@example.com"))
+            .from("no-reply@example.com")
             .subject("Unsupported MIME")
             .body("Body")
             .sendAsHtml(false)
@@ -194,6 +205,7 @@ class EmailServiceImplTest {
     EmailRequest request =
         EmailRequest.builder()
             .to(List.of("to@example.com"))
+            .from("no-reply@example.com")
             .subject("Test")
             .body("Body")
             .sendAsHtml(false)
