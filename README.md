@@ -116,10 +116,9 @@ src/
     └── java/
         └── io/github/rajagurup/mailbridge/
             ├── config/         # Configuration classes
-            ├── engine/         # Core email rendering/sending
+            ├── exception/      # Custom exceptions
             ├── model/          # EmailRequest, Attachment, etc.
             ├── service/        # Interfaces and implementations
-            └── MailBridge.java # Entry point (if needed)
 ```
 
 🧪 Testing & Validation
