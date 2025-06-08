@@ -12,4 +12,4 @@ import org.springframework.context.annotation.Configuration;
     matchIfMissing = true)
 @EnableConfigurationProperties(EmailProperties.class)
 @Generated
-public final class MailBridgeAutoConfig {}
+public class MailBridgeAutoConfig {}

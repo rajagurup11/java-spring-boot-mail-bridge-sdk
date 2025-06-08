@@ -52,8 +52,7 @@ class EmailServiceImplTest {
             .model(Map.of("name", "Tester"))
             .build();
 
-    when(templateEngine.process(eq("classpath:/templates/welcome.html"), any()))
-        .thenReturn("<h1>Hello Tester</h1>");
+    when(templateEngine.process(eq("welcome.html"), any())).thenReturn("<h1>Hello Tester</h1>");
 
     EmailResponse response = emailService.sendEmail(request);
 
