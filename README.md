@@ -70,6 +70,7 @@ In your application.yml:
 # If 'mailbridge.enabled' is set to false, MailBridge is disabled and these values are not required.
 mailbridge:
   enabled: true
+  impl: local # keeping design flexible to add more implementations as required.
 
 spring:
   mail:
@@ -119,23 +120,6 @@ EmailRequest request = EmailRequest.builder()
 emailService.send(request);
 ```
 
-## Code Formatting with Spotless
-
-This project uses the [Spotless Maven Plugin](https://github.com/diffplug/spotless) to enforce consistent code style and formatting.
-
-- **Java** code is formatted with [Google Java Format](https://github.com/google/google-java-format).
-- **XML files** (e.g., `pom.xml`) are formatted using Eclipse WTP XML formatter.
-- To **check** if files comply with formatting rules, run:
-
-  ```bash
-  mvn spotless:check
-  
-- To apply formatting fixes automatically, run:
-  ```bash
-  mvn spotless:check
- 
-Note: This project uses Spotless Maven Plugin version 6.18.0. See the pom.xml for configuration details.
-
 📁 Directory Structure
 ```aiignore
 src/
@@ -150,7 +134,7 @@ src/
 
 🧪 Testing & Validation
 ```aiignore
-Includes unit testing
+Includes unit testing upto 100% coverage.
 ```
 
 🤝 Contributing
@@ -174,5 +158,5 @@ After 14 years in Java and Spring Boot, I built Mail Bridge to save developers f
 - [Documentation](https://rajagurup.github.io/mail-bridge/)
 - [Support](https://github.com/rajagurup/mail-bridge/issues)
 
-License Copyright © 2025 Rajaguru P
+License Copyright © 2025 Rajaguru P, @rajagurup11@gmail.com
 
