@@ -5,12 +5,15 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
-/** Configuration properties for email settings. */
+/**
+ * Configuration properties for email settings.
+ */
 @Validated
 @ConfigurationProperties(prefix = "spring.mail")
 @Generated
 public record EmailProperties(
-    @NotBlank String username,
-    @NotBlank String password,
-    @NotBlank String host,
-    @NotNull Integer port) {}
+        @NotBlank String username,
+        @NotBlank String password,
+        @NotBlank String host,
+        @NotNull Integer port) {
+}
