@@ -1,1 +1,3 @@
-io.github.rajagurup.mailbridge.config.MailBridgeAutoConfig
+io.github.rajagurup.mailbridge.config.LocalEmailServiceConfig
+io.github.rajagurup.mailbridge.config.RemoteEmailServiceConfig
+io.github.rajagurup.mailbridge.config.CommonEmailConfig

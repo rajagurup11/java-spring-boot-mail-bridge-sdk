@@ -13,6 +13,8 @@ import java.util.List;
  * @param recipients List of primary recipients
  */
 @Builder
-public record EmailResponse(
-        boolean success, String messageId, String message, List<String> recipients) {
+public record EmailResponse(boolean success,
+                            String messageId,
+                            String message,
+                            List<String> recipients) {
 }

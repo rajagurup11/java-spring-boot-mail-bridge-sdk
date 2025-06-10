@@ -10,6 +10,7 @@ import java.util.Map;
 /**
  * Represents the email request to be sent.
  *
+ * @param from        Sender address
  * @param to          List of primary recipients (must not be null or empty)
  * @param cc          Optional list of CC recipients
  * @param bcc         Optional list of BCC recipients
@@ -21,17 +22,26 @@ import java.util.Map;
  * @param attachments Optional list of file attachments
  */
 @Builder
-public record EmailRequest(
-        @NotNull List<String> to,
-        @NotNull String from,
-        List<String> cc,
-        List<String> bcc,
-        @NotNull String subject,
-        String template,
-        String body,
-        boolean sendAsHtml,
-        Map<String, Object> model,
-        List<Attachment> attachments) {
+public record EmailRequest(@NotNull String from,
+                           @NotNull List<String> to,
+                           List<String> cc,
+                           List<String> bcc,
+                           @NotNull String subject,
+                           String template,
+                           String body,
+                           boolean sendAsHtml,
+                           Map<String, Object> model,
+                           List<Attachment> attachments) {
+
+    public EmailRequest {
+        boolean hasBody = body != null && !body.isBlank();
+        boolean hasTemplate = template != null && !template.isBlank();
+
+        if (hasBody == hasTemplate) {
+            throw new IllegalArgumentException("Either 'body' or 'template' must be provided, but not both or neither.");
+        }
+    }
+
     /**
      * Checks if the email is template-based.
      *
@@ -49,4 +59,5 @@ public record EmailRequest(
     public boolean isBodyBased() {
         return !isTemplateBased() && StringUtils.hasText(body);
     }
+
 }

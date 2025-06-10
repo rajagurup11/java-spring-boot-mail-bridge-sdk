@@ -7,7 +7,7 @@ import io.github.rajagurup.mailbridge.model.EmailResponse;
 /**
  * Service for sending emails.
  */
-public sealed interface EmailService permits EmailServiceImpl {
+public sealed interface EmailService permits LocalEmailServiceImpl, RemoteEmailServiceImpl {
 
     /**
      * Sends an email.

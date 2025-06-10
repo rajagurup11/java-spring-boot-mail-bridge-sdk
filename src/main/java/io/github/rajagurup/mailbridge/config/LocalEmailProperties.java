@@ -11,9 +11,8 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 @ConfigurationProperties(prefix = "spring.mail")
 @Generated
-public record EmailProperties(
-        @NotBlank String username,
-        @NotBlank String password,
-        @NotBlank String host,
-        @NotNull Integer port) {
+public record LocalEmailProperties(@NotBlank String username,
+                                   @NotBlank String password,
+                                   @NotBlank String host,
+                                   @NotNull Integer port) {
 }
